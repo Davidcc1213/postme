@@ -33,10 +33,17 @@ window.addEventListener('load', async () => {
     BTN_CANCEL_POST = document.querySelector('#btn-post-cancel');
     BTN_CANCEL_POST.addEventListener('click', closePostModal);
 
+    await Notification.requestPermission();
+
     if ('serviceWorker' in navigator) {
         const response = await navigator.serviceWorker.register('sw.js');
         if (response) {
-            console.info('Service worker registrado');
+            //console.info('Service worker registrado');
+            const ready = await navigator.serviceWorker.ready;
+            ready.showNotification('Hola Man que tal?', {
+                body: 'Es te en un mensaje mas largo jaja',
+                vibrate: [200, 100, 200, 100, 200, 100, 200]
+            });
         }
     };
 
